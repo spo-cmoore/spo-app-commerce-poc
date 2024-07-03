@@ -5,17 +5,6 @@ import { typeDefs } from '../schema/typeDefs.generated'
 import { resolvers } from '../schema/resolvers.generated'
 import { AdsApi, ReviewsApi, SearchApi } from '../dataSources'
 
-export async function SpoCommerceGql(
-  request: HttpRequest,
-  context: InvocationContext
-): Promise<HttpResponseInit> {
-  context.log(`Http function processed request for url "${request.url}"`)
-
-  const name = request.query.get('name') || (await request.text()) || 'world'
-
-  return { body: `Hello, ${name}!` }
-}
-
 const server = new ApolloServer<BaseContext>({
   logger: console,
   typeDefs,
