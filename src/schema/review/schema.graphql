@@ -1,0 +1,7 @@
+type Review {
+  id: String
+}
+
+extend type Query {
+  reviews: [String]
+}
