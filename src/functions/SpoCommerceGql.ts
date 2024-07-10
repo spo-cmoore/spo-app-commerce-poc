@@ -1,4 +1,4 @@
-import { app, HttpRequest, HttpResponseInit, InvocationContext } from '@azure/functions'
+import { app } from '@azure/functions'
 import { v4 } from '@as-integrations/azure-functions'
 import { ApolloServer, BaseContext } from '@apollo/server'
 import { typeDefs } from '../schema/typeDefs.generated'
@@ -17,6 +17,8 @@ app.http('SpoCommerceGql', {
   handler: v4.startServerAndCreateHandler(server, {
     context: async ({ req }) => {
       const { cache } = server
+      // TODO authenticate with req.headers
+      // TODO pass cache to data sources
       return {
         dataSources: {
           adsApi: new AdsApi(),

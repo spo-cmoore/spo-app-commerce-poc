@@ -30,6 +30,6 @@ export const products: NonNullable<QueryResolvers['products']> = async (
   const value = orderSponsoredProducts(products, adProducts)
   return {
     value,
-    facets: [],
+    facets,
   }
 }
