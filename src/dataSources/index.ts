@@ -1,3 +1,3 @@
-export { AdsApi } from './ads/ads-api'
-export { ReviewsApi } from './reviews-api'
-export { SearchApi } from './search/search-api'
+export { AdsApi, type MiraklType } from './mirakl'
+export { ReviewsApi } from './bazaarvoice/reviews-api'
+export { SearchApi, type PartnerType } from './partner'

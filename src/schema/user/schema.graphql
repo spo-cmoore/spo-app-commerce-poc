@@ -1,0 +1,128 @@
+extend type Query {
+  me: User
+}
+
+"A guest or member customer"
+type User {
+  "Whether customer accepts marketing"
+  acceptsMarketing: Boolean
+
+  "Auth type 0 for guest, 1 for member customer"
+  authType: Int!
+
+  "Shopify global ID, ie gid://shopify/Customer/12345678"
+  customerId: String
+
+  email: String
+  firstName: String
+  lastName: String
+  loyaltyProfile: LoyaltyProfile
+  shopifyJwtToken: String
+  addresses: [Address]
+
+  emailPreferences: EmailPreferences
+  pushPreferences: PushPreferences
+  stylePreferences: StylePreferences
+
+  favoriteBrands: [FavoriteBrand]
+  favoriteProducts: [FavoriteProduct]
+  savedForLater: [SavedForLaterProduct]
+}
+
+type Address {
+  address1: String!
+  address2: String
+  city: String!
+  countryCode: String!
+  postalCode: String!
+  stateCode: String
+  preferred: Boolean
+}
+
+type Order {
+  "Customer facing order identifier, ie SPO1234567"
+  orderId: String
+
+  "Shopify global ID, ie gid://shopify/Order/12345678"
+  resourceId: String
+
+  "Whether order is fulfilled, or ??"
+  confirmationStatus: String # TODO Make enum
+
+  # TODO
+}
+
+type LoyaltyProfile {
+  "Whether customer has actively asked not to have loyalty membership"
+  hasOptedOut: Boolean!
+
+  loyaltyEnrollDate: String!
+  loyaltyTierName: String!
+  loyaltyTierId: String! # TODO Make enum
+  availablePoints: Int!
+  awardedPoints: Int!
+  pendingPoints: Int!
+  redeemedPoints: Int!
+
+  "Included as refcode query param when opening a facebook share"
+  referralCode: String!
+}
+
+"Customer preferences for receiving marketing emails"
+type EmailPreferences {
+  campaigns: Boolean
+  dailyFinds: Boolean
+  surveys: Boolean
+  liveStreams: Boolean
+  "ie 01GPDCBN090FK669R73GCMJPW8 -- what is this? Klaviyo? Zinrelo?"
+  profileId: String
+}
+
+type PushPreferences {
+  deals: PushPreference
+  orders: PushPreference
+  rewards: PushPreference
+}
+
+type PushPreference {
+  active: Boolean!
+  activationDttm: String!
+  channelId: String!
+  devices: [PushPreferenceDevice]!
+}
+
+type PushPreferenceDevice {
+  deviceId: String!
+  deviceLabel: String!
+  os: String!
+}
+
+type StylePreferences {
+  gender: [String]!
+  additionalInterests: [String]!
+  brands: [String]!
+  styles: [String]!
+  collectionsInterests: [String]!
+  shoeSizes: [String]!
+  dressSizes: [String]!
+  topSizes: [String]!
+  bottomSizes: [String]!
+  colors: [String]!
+}
+
+type FavoriteBrand {
+  brandId: String!
+  originalName: String!
+  lastModified: String!
+}
+
+type FavoriteProduct {
+  product: Product
+  lastModified: String
+}
+
+type SavedForLaterProduct {
+  product: Product
+  variant: Variant
+  lastModified: String
+}

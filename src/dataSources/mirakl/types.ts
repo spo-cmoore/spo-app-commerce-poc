@@ -28,6 +28,10 @@ export const MiraklScreenToPageIdMap = {
   [MiraklPageType.SEARCH_EMPTY]: MiraklPageId.SEARCH_EMPTY,
 }
 
-export interface MiraklAdsFetchResponse {
-  value: any[]
+export interface AdsFetchResponse {
+  value?: Product[]
+}
+
+export interface Product {
+  id: string
 }

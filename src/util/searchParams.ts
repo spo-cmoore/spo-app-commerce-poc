@@ -1,10 +1,11 @@
-import { SearchRequestParams } from '../schema/types.generated'
+import { InputMaybe, SearchRequestParams } from '../schema/types.generated'
 
-export const searchParams = (query: SearchRequestParams): Record<string, string> => {
+export const searchParams = (
+  query: InputMaybe<SearchRequestParams>
+): Record<string, string | undefined> | URLSearchParams => {
   return {
-    ...query,
-    page: query.page?.toString(),
-    pagesize: query.pagesize.toString(),
-    vectorizeTerm: query.vectorizeTerm?.toString(),
+    page: query?.page?.toString(),
+    pagesize: query?.pagesize?.toString(),
+    vectorizeTerm: query?.vectorizeTerm?.toString(),
   }
 }

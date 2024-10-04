@@ -1,10 +1,10 @@
 import { RESTDataSource } from '@apollo/datasource-rest'
 import 'dotenv/config'
-import { MiraklAdsFetchResponse, MiraklPageType, MiraklScreenToPageIdMap } from './types'
+import { AdsFetchResponse, MiraklPageType, MiraklScreenToPageIdMap } from './types'
 
 export class AdsApi extends RESTDataSource {
-  override baseURL = process.env.ADS_API_URL
-  subscriptionKey = process.env.ADS_API_KEY
+  override baseURL = process.env.MIRAKL_API_URL
+  subscriptionKey = process.env.MIRAKL_API_KEY
 
   async getAds(handle = '', page: string = MiraklPageType.SEARCH, numProducts?: number) {
     if (page === MiraklPageType.SEARCH && numProducts === 0) {
@@ -13,7 +13,7 @@ export class AdsApi extends RESTDataSource {
 
     const pageId = MiraklScreenToPageIdMap[page]?.toString()
 
-    return this.get<MiraklAdsFetchResponse>('/SPO-Prod/ShopPoMiraklAdsFetch', {
+    return this.get<AdsFetchResponse>('/SPO-Prod/ShopPoMiraklAdsFetch', {
       params: {
         'subscription-key': this.subscriptionKey,
         customerId: '',

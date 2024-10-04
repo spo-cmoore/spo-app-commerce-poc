@@ -1,0 +1,31 @@
+extend type Query {
+  search(params: SearchRequestParams): SearchResult
+}
+
+type SearchResultFacetValue {
+  count: Int!
+  value: String
+}
+
+input SearchRequestParams {
+  adsPage: String
+  adsHandle: String
+  filter: String
+  page: Int!
+  pagesize: Int
+  sort: String
+  term: String
+  colorhex: String
+  vectorizeTerm: Int
+}
+
+type SearchResultFacet {
+  handle: String!
+  label: String
+  values: [SearchResultFacetValue]
+}
+
+type SearchResult {
+  value: [Product]!
+  facets: [SearchResultFacet]
+}

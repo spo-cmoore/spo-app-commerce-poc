@@ -1,8 +1,9 @@
 import { Product } from '../schema/types.generated'
+import type { MiraklType, PartnerType } from '../dataSources'
 
 export const orderSponsoredProducts = (
-  products: Product[],
-  sponsored: Product[],
+  products: PartnerType.SearchResultProduct[],
+  sponsored: MiraklType.Product[],
   limit = 6,
   every = 3
 ): Product[] => {
@@ -13,10 +14,16 @@ export const orderSponsoredProducts = (
   )
 
   for (const [i, product] of products.entries()) {
-    output.push(product)
+    output.push({ id: product.ProductID, isSponsored: false })
 
     if (sponsoredProducts.length > 0 && i % every === 0) {
-      output.push(sponsoredProducts.shift())
+      const product = sponsoredProducts.shift()
+      if (product) {
+        output.push({
+          id: product.id,
+          isSponsored: true,
+        })
+      }
     }
   }
 
