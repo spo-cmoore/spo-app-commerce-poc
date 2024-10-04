@@ -1,5 +1,5 @@
 extend type Query {
-  me: User
+  me(token: String): User
 }
 
 "A guest or member customer"

@@ -12,7 +12,7 @@ export const search: NonNullable<QueryResolvers['search']> = async (
   const searchData: PartnerType.SearchResultsResponse = await JSON.parse(searchResponse)
   // TODO Assert no errors and type-guard
 
-  const adsResponse = await dataSources.adsApi.getAds(
+  const adsResponse = await dataSources.adsApi.fetchAds(
     params?.adsHandle,
     params?.adsPage,
     searchData.value.length

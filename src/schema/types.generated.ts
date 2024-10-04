@@ -26,6 +26,12 @@ export type Address = {
   stateCode?: Maybe<Scalars['String']['output']>;
 };
 
+export type BrandInformation = {
+  __typename?: 'BrandInformation';
+  id: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+};
+
 /** Customer preferences for receiving marketing emails */
 export type EmailPreferences = {
   __typename?: 'EmailPreferences';
@@ -77,8 +83,19 @@ export type Order = {
 
 export type Product = {
   __typename?: 'Product';
+  brandInfo?: Maybe<ProductBrandInfo>;
+  handle: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   isSponsored?: Maybe<Scalars['Boolean']['output']>;
+  productType: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+};
+
+export type ProductBrandInfo = {
+  __typename?: 'ProductBrandInfo';
+  brand?: Maybe<Scalars['String']['output']>;
+  category?: Maybe<Scalars['String']['output']>;
+  isLuxe?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type PushPreference = {
@@ -108,6 +125,11 @@ export type Query = {
   me?: Maybe<User>;
   reviews?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   search?: Maybe<SearchResult>;
+};
+
+
+export type QuerymeArgs = {
+  token?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -274,6 +296,7 @@ export type ResolversTypes = {
   Address: ResolverTypeWrapper<Address>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  BrandInformation: ResolverTypeWrapper<BrandInformation>;
   EmailPreferences: ResolverTypeWrapper<EmailPreferences>;
   FavoriteBrand: ResolverTypeWrapper<FavoriteBrand>;
   FavoriteProduct: ResolverTypeWrapper<FavoriteProduct>;
@@ -282,6 +305,7 @@ export type ResolversTypes = {
   Order: ResolverTypeWrapper<Order>;
   Product: ResolverTypeWrapper<Product>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  ProductBrandInfo: ResolverTypeWrapper<ProductBrandInfo>;
   PushPreference: ResolverTypeWrapper<PushPreference>;
   PushPreferenceDevice: ResolverTypeWrapper<PushPreferenceDevice>;
   PushPreferences: ResolverTypeWrapper<PushPreferences>;
@@ -302,6 +326,7 @@ export type ResolversParentTypes = {
   Address: Address;
   String: Scalars['String']['output'];
   Boolean: Scalars['Boolean']['output'];
+  BrandInformation: BrandInformation;
   EmailPreferences: EmailPreferences;
   FavoriteBrand: FavoriteBrand;
   FavoriteProduct: FavoriteProduct;
@@ -310,6 +335,7 @@ export type ResolversParentTypes = {
   Order: Order;
   Product: Product;
   ID: Scalars['ID']['output'];
+  ProductBrandInfo: ProductBrandInfo;
   PushPreference: PushPreference;
   PushPreferenceDevice: PushPreferenceDevice;
   PushPreferences: PushPreferences;
@@ -333,6 +359,12 @@ export type AddressResolvers<ContextType = any, ParentType extends ResolversPare
   postalCode?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   preferred?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   stateCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BrandInformationResolvers<ContextType = any, ParentType extends ResolversParentTypes['BrandInformation'] = ResolversParentTypes['BrandInformation']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -379,8 +411,19 @@ export type OrderResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
+  brandInfo?: Resolver<Maybe<ResolversTypes['ProductBrandInfo']>, ParentType, ContextType>;
+  handle?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isSponsored?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  productType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProductBrandInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProductBrandInfo'] = ResolversParentTypes['ProductBrandInfo']> = {
+  brand?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  category?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  isLuxe?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -407,7 +450,7 @@ export type PushPreferencesResolvers<ContextType = any, ParentType extends Resol
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, Partial<QuerymeArgs>>;
   reviews?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
   search?: Resolver<Maybe<ResolversTypes['SearchResult']>, ParentType, ContextType, Partial<QuerysearchArgs>>;
 };
@@ -483,12 +526,14 @@ export type VariantResolvers<ContextType = any, ParentType extends ResolversPare
 
 export type Resolvers<ContextType = any> = {
   Address?: AddressResolvers<ContextType>;
+  BrandInformation?: BrandInformationResolvers<ContextType>;
   EmailPreferences?: EmailPreferencesResolvers<ContextType>;
   FavoriteBrand?: FavoriteBrandResolvers<ContextType>;
   FavoriteProduct?: FavoriteProductResolvers<ContextType>;
   LoyaltyProfile?: LoyaltyProfileResolvers<ContextType>;
   Order?: OrderResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
+  ProductBrandInfo?: ProductBrandInfoResolvers<ContextType>;
   PushPreference?: PushPreferenceResolvers<ContextType>;
   PushPreferenceDevice?: PushPreferenceDeviceResolvers<ContextType>;
   PushPreferences?: PushPreferencesResolvers<ContextType>;

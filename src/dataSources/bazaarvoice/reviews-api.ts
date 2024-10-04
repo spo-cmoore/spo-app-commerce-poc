@@ -26,8 +26,8 @@ enum FEEDBACK_TYPE {
 
 export class ReviewsApi extends RESTDataSource {
   override baseURL = process.env.BAZAARVOICE_API_URL
-  apiVersion = process.env.BAZAARVOICE_API_VERSION
-  apiKey = process.env.BAZAARVOICE_API_KEY
+  private apiVersion = process.env.BAZAARVOICE_API_VERSION
+  private apiKey = process.env.BAZAARVOICE_API_KEY
 
   async parseFilters(queryString: string): Promise<Record<string, string>[]> {
     const filters: Record<string, string>[] = []

@@ -32,6 +32,36 @@ export interface AdsFetchResponse {
   value?: Product[]
 }
 
+export interface ProductVariant {
+  Color: string
+  DesignerColor: string
+  Image: string
+  Size: string
+  InventoryQuantity: number
+  Price: number
+  SKU: string
+  variantId: string
+}
+
 export interface Product {
-  id: string
+  Images: string[]
+  Variants: ProductVariant[]
+  ProductID: string
+  VariantID: string
+  Vendor: string
+  ProductType: string
+  BrandType: string
+  Brand: string
+  Title: string
+  ProductCondition: string
+  CreateDate: string
+  TopSeller: boolean
+  OneDayPageViewVelocity: number
+  Handle: string
+  Price: number
+  CompareAtPrice: string
+  Discount: number
+  color: string[]
+  PromoList: string[]
+  TotalInventoryQuantity: number
 }

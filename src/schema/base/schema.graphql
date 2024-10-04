@@ -7,9 +7,24 @@ extend schema
 
 type Product @key(fields: "id") {
   id: ID! @shareable
+  brandInfo: ProductBrandInfo
+  handle: String! @shareable
   isSponsored: Boolean
+  productType: String!
+  title: String! @shareable
 }
 
 type Variant @key(fields: "id") {
   id: ID! @shareable
+}
+
+type ProductBrandInfo {
+  brand: String
+  isLuxe: Boolean
+  category: String
+}
+
+type BrandInformation {
+  id: String!
+  title: String!
 }

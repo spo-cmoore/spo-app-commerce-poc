@@ -1,5 +1,4 @@
-import { Maybe } from '../../util/typeUtil'
-import { Product } from '../../schema/types.generated'
+import { Maybe } from '../../../util/typeUtil'
 
 export interface SearchResultVariant {
   Color?: Maybe<string>

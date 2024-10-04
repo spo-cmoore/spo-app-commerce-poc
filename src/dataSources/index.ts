@@ -1,3 +1,4 @@
 export { AdsApi, type MiraklType } from './mirakl'
+export { FavoritesApi, type FavoritesType } from './favorites'
 export { ReviewsApi } from './bazaarvoice/reviews-api'
-export { SearchApi, type PartnerType } from './partner'
+export { LoyaltyApi, PersonalizationApi, SearchApi, type PartnerType } from './partner'

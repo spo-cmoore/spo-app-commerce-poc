@@ -20,12 +20,15 @@
     "@as-integrations/azure-functions": "^0.2.0",
     "@azure/functions": "^4.0.0",
     "@shopify/graphql-codegen": "^0.1.0",
+    "base-64": "^1.0.0",
     "dotenv": "^16.4.5",
-    "graphql": "^16.9.0"
+    "graphql": "^16.9.0",
+    "qs": "^6.13.0"
   },
   "devDependencies": {
     "@eddeee888/gcg-typescript-resolver-files": "^0.9.4",
     "@graphql-codegen/cli": "^5.0.2",
+    "@types/base-64": "^1.0.2",
     "@types/node": "18.x",
     "azure-functions-core-tools": "^4.x",
     "prettier": "^3.3.2",

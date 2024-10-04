@@ -1,10 +1,10 @@
-import { buildSubgraphSchema } from '@apollo/subgraph'
-import { app } from '@azure/functions'
-import { v4 } from '@as-integrations/azure-functions'
 import { ApolloServer, BaseContext } from '@apollo/server'
+import { buildSubgraphSchema } from '@apollo/subgraph'
+import { v4 } from '@as-integrations/azure-functions'
+import { app } from '@azure/functions'
 import { typeDefs } from '../schema/typeDefs.generated'
 import { resolvers } from '../schema/resolvers.generated'
-import { AdsApi, ReviewsApi, SearchApi } from '../dataSources'
+import { AdsApi, FavoritesApi, ReviewsApi, SearchApi } from '../dataSources'
 
 const schema = buildSubgraphSchema([{ typeDefs, resolvers }])
 const server = new ApolloServer<BaseContext>({
@@ -23,6 +23,7 @@ app.http('ShopSimon', {
       return {
         dataSources: {
           adsApi: new AdsApi(),
+          favoritesApi: new FavoritesApi(),
           reviewsApi: new ReviewsApi(),
           searchApi: new SearchApi(),
         },

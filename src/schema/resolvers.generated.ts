@@ -4,12 +4,14 @@
 import    { reviews as Query_reviews } from './review/resolvers/Query/reviews';
 import    { search as Query_search } from './search-result/resolvers/Query/search';
 import    { Address } from './user/resolvers/Address';
+import    { BrandInformation } from './base/resolvers/BrandInformation';
 import    { EmailPreferences } from './user/resolvers/EmailPreferences';
 import    { FavoriteBrand } from './user/resolvers/FavoriteBrand';
 import    { FavoriteProduct } from './user/resolvers/FavoriteProduct';
 import    { LoyaltyProfile } from './user/resolvers/LoyaltyProfile';
 import    { Order } from './user/resolvers/Order';
 import    { Product } from './base/resolvers/Product';
+import    { ProductBrandInfo } from './base/resolvers/ProductBrandInfo';
 import    { PushPreference } from './user/resolvers/PushPreference';
 import    { PushPreferenceDevice } from './user/resolvers/PushPreferenceDevice';
 import    { PushPreferences } from './user/resolvers/PushPreferences';
@@ -26,12 +28,14 @@ import    { Variant } from './base/resolvers/Variant';
       
       
       Address: Address,
+BrandInformation: BrandInformation,
 EmailPreferences: EmailPreferences,
 FavoriteBrand: FavoriteBrand,
 FavoriteProduct: FavoriteProduct,
 LoyaltyProfile: LoyaltyProfile,
 Order: Order,
 Product: Product,
+ProductBrandInfo: ProductBrandInfo,
 PushPreference: PushPreference,
 PushPreferenceDevice: PushPreferenceDevice,
 PushPreferences: PushPreferences,
