@@ -84,11 +84,11 @@ export type Order = {
 export type Product = {
   __typename?: 'Product';
   brandInfo?: Maybe<ProductBrandInfo>;
-  handle: Scalars['String']['output'];
+  handle?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   isSponsored?: Maybe<Scalars['Boolean']['output']>;
-  productType: Scalars['String']['output'];
-  title: Scalars['String']['output'];
+  productType?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 export type ProductBrandInfo = {
@@ -412,11 +412,11 @@ export type OrderResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
   brandInfo?: Resolver<Maybe<ResolversTypes['ProductBrandInfo']>, ParentType, ContextType>;
-  handle?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  handle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isSponsored?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  productType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  productType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

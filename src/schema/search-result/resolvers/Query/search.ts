@@ -22,10 +22,6 @@ export const search: NonNullable<QueryResolvers['search']> = async (
 
   const value = orderSponsoredProducts(searchData.value, adsData.value ?? [])
 
-  // const productIds = value.map(v => v.id)
-  // const review = await dataSources.reviewsApi.fetchProductReviews(productIds[0])
-  // console.log(review)
-
   return {
     value,
     facets: searchData.facets,

@@ -1,13 +1,24 @@
-import type { QueryResolvers } from '../../../types.generated'
+import 'dotenv/config'
+import type { QueryResolvers, User } from '../../../types.generated'
 
 export const me: NonNullable<QueryResolvers['me']> = async (
   _parent,
   { token },
   { dataSources }
 ) => {
-  /* Implement Query.me resolver logic here */
-  return {
-    authType: 0,
-    // TODO
+  if (!token) {
+    // TODO return unauthorized?
+    return {
+      authType: 0,
+    }
   }
+
+  // Mock object until fetched from UCP service
+  const ucpResult: User = {
+    authType: 1,
+    customerId: process.env.FAKE_CUSTOMER_ID,
+    email: 'colmoore@shoppremiumoutlets.com',
+  }
+
+  return ucpResult
 }

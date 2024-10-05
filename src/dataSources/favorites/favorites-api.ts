@@ -1,4 +1,5 @@
 import { RESTDataSource } from '@apollo/datasource-rest'
+import 'dotenv/config'
 import {
   FavoriteBrandResponse,
   FavoriteCommand,
@@ -8,7 +9,12 @@ import {
   FavoriteType,
   SaveForLaterResponse,
 } from './types'
-import { BrandInformation, Product } from '../../schema/types.generated'
+import {
+  BrandInformation,
+  FavoriteBrand,
+  FavoriteProduct,
+  Product,
+} from '../../schema/types.generated'
 import { getCustomerResId, getProductResId } from '../../util/shopifyResource'
 import {
   assertFavoriteBrandsResponse,
@@ -32,9 +38,7 @@ export class FavoritesApi extends RESTDataSource {
     })
   }
 
-  public async fetchFavoriteProducts(
-    customerId: string
-  ): Promise<FavoriteProductResponse[]> {
+  public async fetchFavoriteProducts(customerId: string): Promise<FavoriteProduct[]> {
     const response = await this.request({
       command: FavoriteCommand.GET,
       type: FavoriteType.PRODUCT,
@@ -42,7 +46,12 @@ export class FavoritesApi extends RESTDataSource {
     })
 
     assertFavoriteProductsResponse(response)
-    return response.data
+    return response.data.map<FavoriteProduct>(f => ({
+      lastModified: f.timestamp,
+      product: {
+        id: f.productId,
+      },
+    }))
   }
 
   public async addFavoriteProduct(
@@ -57,10 +66,10 @@ export class FavoritesApi extends RESTDataSource {
       location,
       customerId: getCustomerResId(customerId)[0],
       id: productResId,
-      title: product.title,
-      handle: product.handle,
+      title: product.title ?? undefined,
+      handle: product.handle ?? undefined,
       brand: product.brandInfo?.brand ?? undefined,
-      productType: product.productType,
+      productType: product.productType ?? undefined,
     })
   }
 
@@ -76,7 +85,7 @@ export class FavoritesApi extends RESTDataSource {
     })
   }
 
-  public async fetchFavoriteBrands(customerId: string): Promise<FavoriteBrandResponse[]> {
+  public async fetchFavoriteBrands(customerId: string): Promise<FavoriteBrand[]> {
     const [customerResId] = getCustomerResId(customerId)
     const response = await this.request({
       command: FavoriteCommand.GET,
@@ -85,7 +94,11 @@ export class FavoritesApi extends RESTDataSource {
     })
 
     assertFavoriteBrandsResponse(response)
-    return response.data
+    return response.data.map<FavoriteBrand>(f => ({
+      brandId: f.brandId,
+      lastModified: f.timestamp,
+      originalName: f.originalName,
+    }))
   }
 
   public async addFavoriteBrand(

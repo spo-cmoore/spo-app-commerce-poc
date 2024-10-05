@@ -4,7 +4,15 @@ import { v4 } from '@as-integrations/azure-functions'
 import { app } from '@azure/functions'
 import { typeDefs } from '../schema/typeDefs.generated'
 import { resolvers } from '../schema/resolvers.generated'
-import { AdsApi, FavoritesApi, ReviewsApi, SearchApi } from '../dataSources'
+import {
+  AdsApi,
+  FavoritesApi,
+  LoyaltyApi,
+  PersonalizationApi,
+  ReviewsApi,
+  SearchApi,
+} from '../dataSources'
+import { NotificationsApi } from '../dataSources/partner/notifications-api'
 
 const schema = buildSubgraphSchema([{ typeDefs, resolvers }])
 const server = new ApolloServer<BaseContext>({
@@ -24,6 +32,9 @@ app.http('ShopSimon', {
         dataSources: {
           adsApi: new AdsApi(),
           favoritesApi: new FavoritesApi(),
+          loyaltyApi: new LoyaltyApi(),
+          notificationsApi: new NotificationsApi(),
+          personalizationApi: new PersonalizationApi(),
           reviewsApi: new ReviewsApi(),
           searchApi: new SearchApi(),
         },

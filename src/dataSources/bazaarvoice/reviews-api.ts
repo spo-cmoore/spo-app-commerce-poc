@@ -207,7 +207,6 @@ export class ReviewsApi extends RESTDataSource {
     const data = await this.get(url)
 
     if (!data.Results) {
-      console.log('no results') // TODO
       // throw new DataNotFoundException()
     }
 
