@@ -18,6 +18,10 @@ export const me: NonNullable<QueryResolvers['me']> = async (
     authType: 1,
     customerId: process.env.FAKE_CUSTOMER_ID,
     email: 'colmoore@shoppremiumoutlets.com',
+    firstName: 'Coleman',
+    lastName: 'Moore',
+    acceptsMarketing: true,
+    addresses: [],
   }
 
   return ucpResult

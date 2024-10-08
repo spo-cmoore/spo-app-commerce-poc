@@ -1,6 +1,8 @@
 import { RESTDataSource } from '@apollo/datasource-rest'
 import 'dotenv/config'
 import { getCustomerResId } from '../../util/shopifyResource'
+import { assertFetchStylePreferencesResponse } from './validate-response'
+import type { PartnerType } from '.'
 
 export class PersonalizationApi extends RESTDataSource {
   override baseURL = process.env.PARTNER_API_URL
@@ -10,7 +12,9 @@ export class PersonalizationApi extends RESTDataSource {
       }
     : undefined
 
-  public async fetchStylePreferences(userGid: string): Promise<void> {
+  public async fetchStylePreferences(
+    userGid: string
+  ): Promise<PartnerType.StylePreferencesResponse> {
     const [userId] = getCustomerResId(userGid)
     const response = await this.get(
       `/personalization/v1/users/${userId}/style-preferences`,
@@ -18,7 +22,7 @@ export class PersonalizationApi extends RESTDataSource {
         headers: this.headers,
       }
     )
-    // TODO Assert type
+    assertFetchStylePreferencesResponse(response)
 
     return response
   }

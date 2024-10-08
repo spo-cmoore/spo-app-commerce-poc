@@ -211,6 +211,7 @@ export type User = {
   firstName?: Maybe<Scalars['String']['output']>;
   lastName?: Maybe<Scalars['String']['output']>;
   loyaltyProfile?: Maybe<LoyaltyProfile>;
+  orders?: Maybe<Array<Maybe<Order>>>;
   pushPreferences?: Maybe<PushPreferences>;
   savedForLater?: Maybe<Array<Maybe<SavedForLaterProduct>>>;
   shopifyJwtToken?: Maybe<Scalars['String']['output']>;
@@ -512,6 +513,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   loyaltyProfile?: Resolver<Maybe<ResolversTypes['LoyaltyProfile']>, ParentType, ContextType>;
+  orders?: Resolver<Maybe<Array<Maybe<ResolversTypes['Order']>>>, ParentType, ContextType>;
   pushPreferences?: Resolver<Maybe<ResolversTypes['PushPreferences']>, ParentType, ContextType>;
   savedForLater?: Resolver<Maybe<Array<Maybe<ResolversTypes['SavedForLaterProduct']>>>, ParentType, ContextType>;
   shopifyJwtToken?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

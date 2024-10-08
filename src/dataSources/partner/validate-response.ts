@@ -1,4 +1,9 @@
-import { CustomerLoyaltyResponse, PushSubscription } from './types'
+import {
+  CustomerLoyaltyResponse,
+  PushSubscription,
+  ShoppingStylePreferences,
+  StylePreferencesResponse,
+} from './types'
 import { isArrayLike } from '../../util/isArrayLike'
 
 export function assertFetchLoyaltyResponse(
@@ -33,6 +38,26 @@ export function assertFetchPushSubscriptionResponse(
     if (response.length > 0) {
       const item = (response as PushSubscription[])[0]
       if (!('channelId' in item)) {
+        throw 'Invalid response'
+      }
+    }
+    return
+  }
+
+  throw 'Invalid response'
+}
+
+export function assertFetchStylePreferencesResponse(
+  response: unknown
+): asserts response is StylePreferencesResponse {
+  if (!response) {
+    throw 'No response'
+  }
+
+  if (isArrayLike(response)) {
+    if (response.length > 0) {
+      const item = (response as StylePreferencesResponse)[0]
+      if (!('promptId' in item && 'values' in item)) {
         throw 'Invalid response'
       }
     }

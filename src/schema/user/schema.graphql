@@ -19,6 +19,7 @@ type User {
   loyaltyProfile: LoyaltyProfile
   shopifyJwtToken: String
   addresses: [Address]
+  orders: [Order]
 
   emailPreferences: EmailPreferences
   pushPreferences: PushPreferences
